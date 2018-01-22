@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('login', 'LoginController@showLogin')->name('login');
+Route::post('login', 'LoginController@doLogin');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', 'DashboardController@index');
+
+    //kelola
+    Route::resource('pengguna', 'UserController');
+
+    Route::get('logout', 'LoginController@doLogout');
 });
